@@ -7,7 +7,7 @@
 <br>
 
 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe">
-  <img src="https://img.shields.io/badge/%EB%9F%B0%EC%B2%98%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-Windows-2ea44f?style=for-the-badge&logo=windows&logoColor=white" alt="런처 다운로드 (Windows)" height="56">
+  <img src="https://img.shields.io/badge/%EB%9F%B0%EC%B2%98%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C%20(Windows)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" alt="런처 다운로드 (Windows)" width="360">
 </a>
 
 <br><br>
