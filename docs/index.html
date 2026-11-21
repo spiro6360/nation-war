@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>국가전쟁 NationWar</title>
+<meta name="description" content="1주일 동안 국가 코어를 지키고 부수는 마인크래프트 시즌제 PvP 서버">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;900&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 전쟁 깃발 — 런처와 같은 먹색 바탕, 한쪽 모서리를 깎은 판, 왼쪽 정렬 한 단 + 넓은 화면에서 두 단 */
+:root {
+  --ink-0: #0d0b0a;
+  --ink-1: #14110f;
+  --ink-2: #1c1815;
+  --ink-3: #26201c;
+  --line: #3e342c;
+  --text: #f1e6d0;
+  --dim: #b3a58c;
+  --faint: #8a7c68;
+  --gold: #e0a83c;
+  --gold-hi: #f4c66a;
+  --crimson: #c8323c;
+  --crimson-hi: #e5525b;
+  --cut: 16px;
+  --f-display: 'Noto Serif KR', 'Batang', serif;
+  --f-body: 'IBM Plex Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--ink-1);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+a { color: var(--gold-hi); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-block: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.25; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 900; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0; }
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* ── 첫 화면 ── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse 60% 80% at 85% 20%, rgba(200, 50, 60, 0.22), transparent 70%),
+    radial-gradient(ellipse 50% 70% at 10% 100%, rgba(224, 168, 60, 0.12), transparent 70%),
+    var(--ink-0);
+}
+.hero .wrap {
+  padding-block: clamp(48px, 9vw, 96px) clamp(40px, 7vw, 72px);
+  display: grid;
+  gap: 28px;
+}
+.crest {
+  width: 56px; height: 64px;
+  background: linear-gradient(160deg, var(--crimson-hi), var(--crimson) 60%, #7d1a22);
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%);
+  display: grid; place-items: center;
+  font-family: var(--f-display); font-weight: 900; font-size: 26px; color: var(--gold-hi);
+}
+.hero h1 {
+  font-size: clamp(3rem, 11vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.hero h1 small {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--f-mono);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.5em;
+  color: var(--dim);
+}
+.lede { max-width: 38em; font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--text); }
+.lede strong { color: var(--gold-hi); font-weight: 700; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px;
+  font: 700 1rem var(--f-body);
+  text-decoration: none;
+  color: var(--ink-0);
+  background: var(--gold);
+  border: 0;
+  clip-path: polygon(var(--cut) 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:hover { background: var(--gold-hi); }
+.addr {
+  display: inline-flex; align-items: center; gap: 0;
+  border: 1px solid var(--line);
+  background: var(--ink-2);
+  min-width: 0;
+}
+.addr code { padding: 12px 16px; font-family: var(--f-mono); font-size: 1rem; color: var(--text); overflow-wrap: anywhere; }
+.addr button {
+  align-self: stretch;
+  padding: 0 16px;
+  border: 0; border-left: 1px solid var(--line);
+  background: var(--ink-3); color: var(--dim);
+  font: 500 0.9rem var(--f-body); cursor: pointer;
+}
+.addr button:hover { color: var(--text); }
+.note { font-size: 0.9rem; color: var(--faint); }
+
+/* ── 숫자 띠 ── */
+.facts { border-bottom: 1px solid var(--line); background: var(--ink-1); }
+.facts ul {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.facts li { padding-block: 22px; padding-inline: 0 16px; border-right: 1px solid var(--line); display: grid; gap: 2px; }
+.facts li + li { padding-left: 20px; }
+.facts li:last-child { border-right: 0; }
+.facts b { font-family: var(--f-display); font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--gold-hi); line-height: 1.1; }
+.facts span { font-size: 0.88rem; color: var(--dim); }
+
+/* ── 본문 단 ── */
+section.block { padding-block: clamp(48px, 8vw, 80px); border-bottom: 1px solid var(--line); }
+.head { display: grid; gap: 10px; margin-bottom: 32px; max-width: 40em; }
+.head p { color: var(--dim); }
+
+/* 시즌 흐름 */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--line); }
+.timeline li { position: relative; padding: 0 0 28px 28px; display: grid; gap: 4px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before {
+  content: ""; position: absolute; left: -7px; top: 8px;
+  width: 12px; height: 12px; background: var(--ink-1); border: 2px solid var(--gold);
+  transform: rotate(45deg);
+}
+.timeline li.hot::before { background: var(--crimson); border-color: var(--crimson-hi); }
+.timeline .when { font-family: var(--f-mono); font-size: 0.82rem; color: var(--gold); letter-spacing: 0.06em; }
+.timeline p { color: var(--dim); max-width: 42em; }
+
+/* 코어 */
+.core-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.plate {
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+  padding: 24px;
+  display: grid; gap: 14px; align-content: start;
+  min-width: 0;
+}
+.hp { display: grid; gap: 8px; }
+.hp-bar { height: 14px; background: var(--ink-0); border: 1px solid var(--line); position: relative; overflow: hidden; }
+.hp-bar i { position: absolute; inset: 0 auto 0 0; width: 100%; background: linear-gradient(90deg, var(--crimson), var(--crimson-hi)); }
+.hp-row { display: flex; justify-content: space-between; gap: 12px; font-size: 0.9rem; color: var(--dim); }
+.plate ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--dim); }
+.plate ul strong { color: var(--text); font-weight: 500; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 500; color: var(--faint); font-size: 0.82rem; letter-spacing: 0.04em; }
+td.r, th.r { text-align: right; padding-right: 0; }
+.tbl { overflow-x: auto; }
+.block-icon { display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.4); }
+
+/* 종반 차트 */
+.chart { overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.chart .axis { stroke: var(--line); }
+.chart .grid { stroke: var(--ink-3); }
+.chart text { fill: var(--faint); font: 500 12px var(--f-mono); }
+.chart .lab { fill: var(--dim); font: 500 12px var(--f-body); }
+.chart .area { fill: rgba(200, 50, 60, 0.16); }
+.chart .lineg { stroke: var(--crimson-hi); stroke-width: 2.5; fill: none; }
+.chart .dot { fill: var(--gold-hi); }
+
+/* 점수 · 전투 두 단 */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
+.two > div { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.rules { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; color: var(--dim); }
+.rules strong { color: var(--text); font-weight: 500; }
+
+/* 접속 방법 */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+.steps li { counter-increment: s; background: var(--ink-2); border: 1px solid var(--line); padding: 20px; display: grid; gap: 8px; align-content: start; }
+.steps li::before { content: counter(s); font-family: var(--f-display); font-weight: 900; font-size: 2rem; line-height: 1; color: var(--gold); }
+.steps p { color: var(--dim); font-size: 0.95rem; }
+
+/* 명령어 */
+.cmds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+.cmd { display: grid; grid-template-columns: minmax(9.5em, auto) minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.cmd code { font-family: var(--f-mono); color: var(--gold-hi); font-size: 0.92rem; overflow-wrap: anywhere; }
+.cmd span { color: var(--dim); font-size: 0.95rem; }
+
+/* 자주 묻는 질문 */
+.faq { display: grid; gap: 0; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; padding: 16px 0; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--f-mono); color: var(--gold); }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { padding-bottom: 18px; color: var(--dim); max-width: 46em; }
+
+footer { padding-block: 32px 48px; color: var(--faint); font-size: 0.88rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 820px) {
+  .facts ul { grid-template-columns: repeat(2, 1fr); }
+  .facts li:nth-child(2) { border-right: 0; }
+  .facts li:nth-child(3) { padding-left: 0; }
+  .facts li:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .core-grid, .two { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cmds { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 460px) {
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .cmd { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="crest" aria-hidden="true">國</div>
+    <h1>국가전쟁<small>NATION WAR</small></h1>
+    <p class="lede">팀장이 포인트 경매로 국민을 데려가 나라를 세우고, <strong>국가 코어</strong>를 숨겨 지키며 다른 나라의 코어를 부숩니다. 코어가 부서진 나라는 멸망해 부순 나라에 흡수됩니다. <strong>7일</strong> 뒤까지 살아남은 마지막 나라, 혹은 점수 1위가 우승합니다.</p>
+    <div class="actions">
+      <a class="btn" href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>런처 받기 (Windows)</a>
+      <div class="addr">
+        <code id="addr">nonamewar.labmc.kr</code>
+        <button type="button" id="copy">주소 복사</button>
+      </div>
+    </div>
+    <p class="note">마인크래프트 자바 에디션 정품 계정 · 버전 26.3 · 전용 런처로만 접속할 수 있습니다. 서버는 <strong>토·일요일에만</strong> 열립니다. 오픈 일정은 따로 공지합니다.</p>
+  </div>
+</header>
+
+<div class="facts">
+  <div class="wrap">
+    <ul>
+      <li><b class="num">7일</b><span>시즌 길이 · 주말에만 흘러 약 3~4주</span></li>
+      <li><b class="num">1000</b><span>국가 코어 체력</span></li>
+      <li><b class="num">±100칸</b><span>6시간마다 공개되는 코어 위치</span></li>
+      <li><b class="num">3000→300</b><span>종반 월드보더 지름(칸)</span></li>
+    </ul>
+  </div>
+</div>
+
+<main>
+  <section class="block" id="season">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Season</span>
+        <h2>시즌은 이렇게 흘러갑니다</h2>
+        <p>아래 시간은 기본 설정 기준이고, 시즌마다 공지로 바뀔 수 있습니다.</p>
+      </div>
+      <ol class="timeline">
+        <li><span class="when">시작 전</span><h3>드래프트 경매</h3><p>관리자가 명단에 넣은 사람만 참가합니다. 팀장마다 100포인트를 받고, 참가자가 무작위 순서로 한 명씩 올라오면 공개 입찰로 데려갑니다(첫 입찰 15초, 입찰마다 10초 연장). 아무도 안 걸면 맨 뒤로, 두 번 유찰되면 끝에 자리 남은 팀으로 0포인트. 모두가 런처 드래프트 화면에서 실시간으로 보고, 팀장은 거기서 입찰합니다.</p></li>
+        <li><span class="when">경매 직후</span><h3>건국</h3><p>팀장이 국왕이 되어 2분 안에 국가 이름과 색을 정합니다.</p></li>
+        <li><span class="when">0시간</span><h3>전쟁 시작</h3><p>나라마다 흩어진 스폰 지점에서 10초 카운트다운 뒤 시작합니다. 국왕은 국가 코어(신호기)를 받아 <strong>15분 안에</strong> 설치합니다. 안 하면 자동으로 설치됩니다.</p></li>
+        <li><span class="when">매주 토 22:00</span><h3>엔드 개방</h3><p>2시간 동안만 엔드 포탈이 열립니다. 드래곤이 쓰러지면 1분 뒤 모두 돌아오고 엔드는 처음 상태로 초기화됩니다.</p></li>
+        <li><span class="when">6시간마다</span><h3>코어 위치 공개</h3><p>모든 코어의 대략적인 위치(±100칸)가 공개됩니다.</p></li>
+        <li class="hot"><span class="when">5일차</span><h3>종반 · 서든데스</h3><p>코어 위치가 1시간마다 공개되고, 코어 자연 회복이 멈추며, 월드보더가 1시간마다 지름 60칸씩 줄어듭니다. 보더에 밀린 코어는 안쪽으로 옮겨집니다.</p></li>
+        <li class="hot"><span class="when">7일차</span><h3>종료</h3><p>마지막까지 남은 나라가 우승합니다. 7일이 지나면 그때 점수 1위가 우승합니다. 끝나면 모두 관전 모드가 되고 순위·MVP·국가별 통계가 담긴 결과 보고서가 나옵니다.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="core">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Nation Core</span>
+        <h2>국가 코어를 지켜라</h2>
+        <p>코어가 부서지면 그 나라는 멸망하고, 막타를 친 사람의 나라에 통째로 흡수됩니다. 흡수된 사람들은 그 나라 국민이 되어 계속 싸웁니다.</p>
+      </div>
+      <div class="core-grid">
+        <div class="plate">
+          <h3>체력과 회복</h3>
+          <div class="hp">
+            <div class="hp-bar" aria-hidden="true"><i></i></div>
+            <div class="hp-row"><span>체력</span><span class="num">1000 / 1000</span></div>
+          </div>
+          <ul>
+            <li>다른 나라 사람이 때리면 깎입니다. <strong>무기 종류·재질·날카로움/효율 인챈트</strong>에 따라 피해가 다르고, TNT·크리퍼 폭발도 피해를 줍니다.</li>
+            <li>10분 동안 맞지 않으면 <strong>1분에 10씩</strong> 저절로 회복합니다 (종반에는 멈춤).</li>
+            <li>설치 조건: 다른 코어에서 <strong>300칸 이상</strong>, 높이 <span class="num">-40 ~ 200</span>, 보더 안쪽.</li>
+            <li>국왕은 게임당 한 번 코어를 회수해 옮길 수 있습니다 (최근 5분 동안 맞지 않았을 때, 10분 안에 다시 설치).</li>
+            <li>나침반을 들고 우클릭하면 우리 코어의 방향과 거리가 나옵니다.</li>
+          </ul>
+        </div>
+        <div class="plate">
+          <h3>블록으로 수리하기</h3>
+          <p class="note">국가원이 블록을 들고 우리 코어를 우클릭합니다. 30초 간격, 맞은 뒤 60초 동안은 수리할 수 없습니다.</p>
+          <div class="tbl">
+            <table>
+              <thead><tr><th>들고 우클릭</th><th class="r">회복</th></tr></thead>
+              <tbody>
+                <tr><td><span class="block-icon" style="background:#d8d8d8"></span>철 블록</td><td class="r num">+50</td></tr>
+                <tr><td><span class="block-icon" style="background:#f5d33b"></span>금 블록</td><td class="r num">+30</td></tr>
+                <tr><td><span class="block-icon" style="background:#5fe0d6"></span>다이아몬드 블록</td><td class="r num">+150</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">폭발처럼 막타가 없으면, 최근 30초 동안 가장 많이 때린 나라가 흡수합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="weekly">
+    <div class="wrap">
+      <div class="two">
+        <div>
+          <span class="eyebrow">Weekend &amp; The End</span>
+          <h2>주말 서버와 토요일 밤의 엔드</h2>
+          <ul class="rules">
+            <li>서버는 <strong>토·일요일(한국 시간)</strong>에만 열립니다. 평일에 접속하면 다음 열림 시각과 함께 접속이 거절됩니다.</li>
+            <li>일요일 자정에 전쟁이 <strong>저절로 멈추고</strong> 토요일 0시에 이어집니다. 평일은 7일에 들어가지 않습니다.</li>
+            <li>엔드 포탈은 <strong>매주 토요일 22:00부터 2시간</strong>만 열립니다. 다른 때 들어가면 막히고 다음 열림이 안내됩니다.</li>
+            <li>누군가 엔더 드래곤을 잡으면 <strong>정확히 1분 뒤</strong> 엔드에 있는 모두가 자기 나라 리스폰 지점으로 돌아가고, 엔드는 잠긴 뒤 처음 상태로 초기화됩니다. 2시간이 지나도 같습니다.</li>
+            <li>그래서 겉날개는 엔드 도시에서 쉽게 얻을 수 없습니다. 하늘을 날려면 코어 상점의 <strong>한 번 비행 겉날개</strong>를 쓰세요.</li>
+          </ul>
+        </div>
+        <div>
+          <span class="eyebrow">Core Shop</span>
+          <h2>코어 상점</h2>
+          <p class="note">우리 코어를 우클릭하면 열립니다. 경험치 <strong>레벨</strong>로 삽니다 (웅크린 채 우클릭하면 블록 놓기).</p>
+          <div class="tbl">
+            <table>
+              <thead><tr><th>아이템</th><th class="r">레벨</th></tr></thead>
+              <tbody>
+                <tr><td>한 번 비행 겉날개 <span class="note">— 내구도 무한, 착륙하면 사라짐</span></td><td class="r num">30</td></tr>
+                <tr><td>불사의 토템</td><td class="r num">30</td></tr>
+                <tr><td>TNT ×4</td><td class="r num">12</td></tr>
+                <tr><td>황금 사과 ×2</td><td class="r num">10</td></tr>
+                <tr><td>엔더 진주 ×4</td><td class="r num">8</td></tr>
+                <tr><td>폭죽 로켓 ×8</td><td class="r num">5</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="endgame">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Sudden Death</span>
+        <h2>5일차부터 좁아지는 전장</h2>
+        <p>월드보더는 1시간마다 지름 60칸씩 줄어 약 45시간 뒤 300칸에서 멈춥니다. 마지막 이틀은 숨을 곳이 없습니다.</p>
+      </div>
+      <figure class="chart" style="margin:0">
+        <svg viewBox="0 0 640 250" role="img" aria-label="종반 월드보더 지름: 5일차 3000칸에서 시작해 45시간 뒤 300칸, 7일차까지 300칸 유지">
+          <!-- x: 0~48시간 → 60~620, y: 0~3000칸 → 210~20 -->
+          <line class="grid" x1="60" y1="20" x2="620" y2="20"/>
+          <line class="grid" x1="60" y1="115" x2="620" y2="115"/>
+          <line class="grid" x1="60" y1="191" x2="620" y2="191"/>
+          <line class="axis" x1="60" y1="210" x2="620" y2="210"/>
+          <line class="axis" x1="60" y1="20" x2="60" y2="210"/>
+          <text x="52" y="24" text-anchor="end">3000</text>
+          <text x="52" y="119" text-anchor="end">1500</text>
+          <text x="52" y="195" text-anchor="end">300</text>
+          <text x="60" y="230" text-anchor="middle">5일차</text>
+          <text x="200" y="230" text-anchor="middle">+12h</text>
+          <text x="340" y="230" text-anchor="middle">6일차</text>
+          <text x="480" y="230" text-anchor="middle">+36h</text>
+          <text x="620" y="230" text-anchor="end">7일차</text>
+          <polygon class="area" points="60,20 585,191 620,191 620,210 60,210"/>
+          <polyline class="lineg" points="60,20 585,191 620,191"/>
+          <circle class="dot" cx="585" cy="191" r="5"/>
+          <text class="lab" x="579" y="178" text-anchor="end">45시간 뒤 300칸</text>
+          <text class="lab" x="72" y="42">지름 3000칸</text>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="combat">
+    <div class="wrap">
+      <div class="two">
+        <div>
+          <span class="eyebrow">Combat</span>
+          <h2>전투 규칙</h2>
+          <ul class="rules">
+            <li>같은 나라끼리는 서로 피해를 주지 않습니다.</li>
+            <li>죽으면 아이템을 떨어뜨리고 <strong>15초 뒤</strong> 리스폰, 리스폰 직후 3초 동안 보호됩니다.</li>
+            <li>공격을 주고받으면 15초 동안 <strong>전투 중</strong>이 되고, 이때 접속을 끊으면 죽은 것으로 처리됩니다.</li>
+            <li>국왕은 장교를 임명할 수 있고, 설정에 따라 다른 나라와 동맹을 맺을 수 있습니다.</li>
+          </ul>
+        </div>
+        <div>
+          <span class="eyebrow">Score</span>
+          <h2>점수</h2>
+          <div class="tbl">
+            <table>
+              <thead><tr><th>얻는 방법</th><th class="r">점수</th></tr></thead>
+              <tbody>
+                <tr><td>처치</td><td class="r num">10</td></tr>
+                <tr><td>어시스트</td><td class="r num">3</td></tr>
+                <tr><td>코어 피해 1당</td><td class="r num">0.1</td></tr>
+                <tr><td>다른 나라 흡수</td><td class="r num">200 + 그 나라 점수의 50%</td></tr>
+                <tr><td>살아남은 나라, 1시간마다</td><td class="r num">5</td></tr>
+                <tr><td>시간 종료 보너스: 국가원 1명당</td><td class="r num">20</td></tr>
+                <tr><td>시간 종료 보너스: 코어 체력 1%당</td><td class="r num">1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="join">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">How to join</span>
+        <h2>접속 방법</h2>
+        <p>국가전쟁은 전용 런처로만 들어올 수 있습니다. 런처가 게임 설치, 허용된 모드 관리, 서버 접속을 한 번에 해 줍니다.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>런처 받기</h3><p>위의 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>[런처 받기]</a>를 누르면 설치 파일 <code>NationWar-Setup.exe</code>가 바로 받아집니다.</p></li>
+        <li><h3>설치</h3><p>"Windows의 PC 보호" 창이 뜨면 <strong>추가 정보 → 실행</strong>. 관리자 권한은 필요 없습니다.</p></li>
+        <li><h3>로그인</h3><p>마이크로소프트 계정으로 로그인합니다. 비밀번호는 마이크로소프트 공식 창에서만 입력합니다.</p></li>
+        <li><h3>출정</h3><p>홈에서 [게임 시작]을 누르면 26.3 설치 후 서버로 바로 접속합니다. 새 런처 판은 자동으로 받습니다.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="commands">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Commands</span>
+        <h2>자주 쓰는 명령어</h2>
+      </div>
+      <div class="cmds">
+        <div class="cmd"><code>/nc [메시지]</code><span>국가 채팅. 그냥 치면 켜고 끄기</span></div>
+        <div class="cmd"><code>/nation core</code><span>우리 코어의 상태·위치·체력</span></div>
+        <div class="cmd"><code>/nation score</code><span>국가 점수 순위</span></div>
+        <div class="cmd"><code>/nation info [국가]</code><span>국가 목록, 또는 한 나라의 국왕·장교·국민·동맹</span></div>
+        <div class="cmd"><code>/nation core relocate</code><span>코어 회수해 옮기기 (국왕)</span></div>
+        <div class="cmd"><code>/nation promote &lt;이름&gt;</code><span>장교 임명 (국왕), 해제는 demote</span></div>
+        <div class="cmd"><code>/draft bid &lt;금액&gt;</code><span>드래프트 경매 입찰 (팀장, +5 처럼 쓰면 최고가보다 더). 런처에서도 됩니다</span></div>
+        <div class="cmd"><code>/nw result</code><span>지난 게임의 결과 보고서</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">FAQ</span>
+        <h2>자주 묻는 질문</h2>
+      </div>
+      <div class="faq">
+        <details><summary>다른 런처나 바닐라로는 못 들어가나요?</summary><p>네. 서버가 접속할 때 NationWar 런처의 확인 모드를 찾고, 없으면 10초 뒤 "NationWar 런처로 접속해 주세요"라는 문구와 함께 내보냅니다.</p></details>
+        <details><summary>모드를 써도 되나요?</summary><p>관리자가 허용한 모드만 쓸 수 있습니다. 런처의 모드 탭에서 허용된 모드를 바로 설치할 수 있고, 원하는 모드가 없으면 [추가 요청]을 누르면 관리자에게 전달됩니다. 허용되지 않은 모드는 게임을 켤 때 자동으로 빼 둡니다.</p></details>
+        <details><summary>정품 계정이 꼭 필요한가요?</summary><p>네. 마인크래프트 자바 에디션을 가진 마이크로소프트 계정이 필요합니다.</p></details>
+        <details><summary>맥이나 리눅스에서도 되나요?</summary><p>지금 런처는 Windows(64비트)용만 있습니다.</p></details>
+        <details><summary>"Windows의 PC 보호" 창이 떠요. 괜찮나요?</summary><p>런처에 유료 코드 서명을 하지 않아 뜨는 창입니다. 공식 배포처(GitHub spiro6360/nation-war)에서 받은 파일이라면 <strong>추가 정보 → 실행</strong>을 눌러 설치하면 됩니다.</p></details>
+        <details><summary>평일에는 못 들어가나요?</summary><p>네. 서버는 토·일요일에만 열리고, 평일에는 관리자만 들어올 수 있습니다. 평일 동안은 전쟁이 멈춰 있어서 남은 시간이 줄지 않습니다.</p></details>
+        <details><summary>겉날개는 어떻게 얻나요?</summary><p>엔드는 매주 토요일 22시에만 열리고 드래곤이 쓰러지면 1분 뒤 초기화되어, 엔드 도시를 돌 시간이 거의 없습니다. 대신 국가 코어 상점에서 레벨 30으로 한 번 비행 겉날개를 살 수 있습니다. 착륙하면 사라집니다.</p></details>
+        <details><summary>서버에 들어가지 못하고 "참가 명단에 없습니다"라고 나와요.</summary><p>이번 시즌은 관리자가 드래프트 명단(팀장·경매 참가자)에 넣은 사람만 들어올 수 있습니다. 참가하려면 관리자에게 마인크래프트 닉네임을 알려 명단에 넣어 달라고 하세요.</p></details>
+        <details><summary>포인트가 남으면 어떻게 되나요?</summary><p>경매가 끝나면 남은 포인트는 쓰이지 않습니다. 대신 한 팀원에게 너무 많이 걸면 남은 자리를 채울 포인트가 부족해질 수 있어, 남은 자리마다 최소 입찰가만큼은 남겨야 합니다.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>국가전쟁 · NationWar — 마인크래프트 자바 에디션 26.3</span>
+    <span>Minecraft는 Mojang Studios의 상표이며, 이 서버는 Mojang과 관련이 없습니다.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('copy');
+    var addr = document.getElementById('addr');
+    btn.addEventListener('click', function () {
+      var text = addr.textContent;
+      function selectIt() {
+        var range = document.createRange();
+        range.selectNodeContents(addr);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        btn.textContent = '선택됨 · Ctrl+C';
+      }
+      try {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = '복사됨';
+          setTimeout(function () { btn.textContent = '주소 복사'; }, 1800);
+        }, selectIt);
+      } catch (e) { selectIt(); }
+    });
+  })();
+</script>
+
+</body>
+</html>
