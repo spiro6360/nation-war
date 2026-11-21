@@ -18,6 +18,8 @@
 
 **↑ 초록 버튼을 누르면 설치 파일(NationWar-Setup.exe)이 바로 받아집니다.**
 
+게임 규칙·접속 방법 설명: **[spiro6360.github.io/nation-war](https://spiro6360.github.io/nation-war/)**
+
 </div>
 
 ## 설치 방법
