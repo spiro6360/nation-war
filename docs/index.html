@@ -113,21 +113,6 @@ p { margin: 0; }
   transition: background 0.15s;
 }
 .btn:hover { background: var(--gold-hi); }
-.addr {
-  display: inline-flex; align-items: center; gap: 0;
-  border: 1px solid var(--line);
-  background: var(--ink-2);
-  min-width: 0;
-}
-.addr code { padding: 12px 16px; font-family: var(--f-mono); font-size: 1rem; color: var(--text); overflow-wrap: anywhere; }
-.addr button {
-  align-self: stretch;
-  padding: 0 16px;
-  border: 0; border-left: 1px solid var(--line);
-  background: var(--ink-3); color: var(--dim);
-  font: 500 0.9rem var(--f-body); cursor: pointer;
-}
-.addr button:hover { color: var(--text); }
 .note { font-size: 0.9rem; color: var(--faint); }
 
 /* ── 숫자 띠 ── */
@@ -241,6 +226,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 </style>
 </head>
 <body>
+
 <header class="hero">
   <div class="wrap">
     <div class="crest" aria-hidden="true">國</div>
@@ -248,12 +234,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <p class="lede">팀장이 포인트 경매로 국민을 데려가 나라를 세우고, <strong>국가 코어</strong>를 숨겨 지키며 다른 나라의 코어를 부숩니다. 코어가 부서진 나라는 멸망해 부순 나라에 흡수됩니다. <strong>7일</strong> 뒤까지 살아남은 마지막 나라, 혹은 점수 1위가 우승합니다.</p>
     <div class="actions">
       <a class="btn" href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>런처 받기 (Windows)</a>
-      <div class="addr">
-        <code id="addr">nonamewar.labmc.kr</code>
-        <button type="button" id="copy">주소 복사</button>
-      </div>
     </div>
-    <p class="note">마인크래프트 자바 에디션 정품 계정 · 버전 26.3 · 전용 런처로만 접속할 수 있습니다. 서버는 <strong>토·일요일에만</strong> 열립니다. 오픈 일정은 따로 공지합니다.</p>
+    <p class="note">마인크래프트 자바 에디션 정품 계정 · 버전 26.3 · 런처를 설치하고 <strong>게임 시작</strong>을 누르면 서버로 바로 들어갑니다 (전용 런처로만 접속할 수 있습니다). 서버는 <strong>토·일요일에만</strong> 열립니다. 오픈 일정은 따로 공지합니다.</p>
   </div>
 </header>
 
@@ -495,30 +477,5 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <span>Minecraft는 Mojang Studios의 상표이며, 이 서버는 Mojang과 관련이 없습니다.</span>
   </div>
 </footer>
-
-<script>
-  (function () {
-    var btn = document.getElementById('copy');
-    var addr = document.getElementById('addr');
-    btn.addEventListener('click', function () {
-      var text = addr.textContent;
-      function selectIt() {
-        var range = document.createRange();
-        range.selectNodeContents(addr);
-        var sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        btn.textContent = '선택됨 · Ctrl+C';
-      }
-      try {
-        navigator.clipboard.writeText(text).then(function () {
-          btn.textContent = '복사됨';
-          setTimeout(function () { btn.textContent = '주소 복사'; }, 1800);
-        }, selectIt);
-      } catch (e) { selectIt(); }
-    });
-  })();
-</script>
-
 </body>
 </html>
