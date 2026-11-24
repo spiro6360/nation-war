@@ -179,7 +179,7 @@ td.r, th.r { text-align: right; padding-right: 0; }
 .chart .lineg { stroke: var(--crimson-hi); stroke-width: 2.5; fill: none; }
 .chart .dot { fill: var(--gold-hi); }
 
-/* 점수 · 전투 두 단 */
+/* 우승 조건 · 전투 두 단 */
 .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
 .two > div { display: grid; gap: 16px; align-content: start; min-width: 0; }
 .rules { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; color: var(--dim); }
@@ -231,7 +231,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <div class="wrap">
     <div class="crest" aria-hidden="true">國</div>
     <h1>국가전쟁<small>NATION WAR</small></h1>
-    <p class="lede">팀장이 포인트 경매로 국민을 데려가 나라를 세우고, <strong>국가 코어</strong>를 숨겨 지키며 다른 나라의 코어를 부숩니다. 코어가 부서진 나라는 멸망해 부순 나라에 흡수됩니다. <strong>7일</strong> 뒤까지 살아남은 마지막 나라, 혹은 점수 1위가 우승합니다.</p>
+    <p class="lede">팀장이 포인트 경매로 국민을 데려가 나라를 세우고, <strong>국가 코어</strong>를 숨겨 지키며 다른 나라의 코어를 부숩니다. 코어가 부서진 나라는 멸망해 부순 나라에 흡수됩니다. 마지막까지 살아남은 나라, 혹은 <strong>7일차 밤 9시</strong>에 맵 가운데에 열리는 중앙 거점을 먼저 점령한 나라가 우승합니다.</p>
     <div class="actions">
       <a class="btn" href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>런처 받기 (Windows)</a>
     </div>
@@ -244,8 +244,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <ul>
       <li><b class="num">7일</b><span>시즌 길이 · 주말에만 흘러 약 3~4주</span></li>
       <li><b class="num">1000</b><span>국가 코어 체력</span></li>
-      <li><b class="num">±100칸</b><span>6시간마다 공개되는 코어 위치</span></li>
-      <li><b class="num">3000→300</b><span>종반 월드보더 지름(칸)</span></li>
+      <li><b class="num">비공개</b><span>코어 위치는 직접 찾아야 합니다</span></li>
+      <li><b class="num">2000~3000</b><span>국가 수에 맞춘 시작 월드보더 지름(칸)</span></li>
     </ul>
   </div>
 </div>
@@ -263,9 +263,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <li><span class="when">경매 직후</span><h3>건국</h3><p>팀장이 국왕이 되어 2분 안에 국가 이름과 색을 정합니다.</p></li>
         <li><span class="when">0시간</span><h3>전쟁 시작</h3><p>나라마다 흩어진 스폰 지점에서 10초 카운트다운 뒤 시작합니다. 국왕은 국가 코어(신호기)를 받아 <strong>15분 안에</strong> 설치합니다. 안 하면 자동으로 설치됩니다.</p></li>
         <li><span class="when">매주 토 22:00</span><h3>엔드 개방</h3><p>2시간 동안만 엔드 포탈이 열립니다. 드래곤이 쓰러지면 1분 뒤 모두 돌아오고 엔드는 처음 상태로 초기화됩니다.</p></li>
-        <li><span class="when">6시간마다</span><h3>코어 위치 공개</h3><p>모든 코어의 대략적인 위치(±100칸)가 공개됩니다.</p></li>
-        <li class="hot"><span class="when">5일차</span><h3>종반 · 서든데스</h3><p>코어 위치가 1시간마다 공개되고, 코어 자연 회복이 멈추며, 월드보더가 1시간마다 지름 60칸씩 줄어듭니다. 보더에 밀린 코어는 안쪽으로 옮겨집니다.</p></li>
-        <li class="hot"><span class="when">7일차</span><h3>종료</h3><p>마지막까지 남은 나라가 우승합니다. 7일이 지나면 그때 점수 1위가 우승합니다. 끝나면 모두 관전 모드가 되고 순위·MVP·국가별 통계가 담긴 결과 보고서가 나옵니다.</p></li>
+        <li class="hot"><span class="when">5일차</span><h3>종반 · 서든데스</h3><p>코어 자연 회복이 멈춥니다. 더 이상 저절로 체력이 차지 않으니 공격이 훨씬 무거워집니다.</p></li>
+        <li class="hot"><span class="when">7일차</span><h3>오후 9시 · 중앙 거점</h3><p>X 0, Z 0 에 거점이 열립니다. 점령 점수를 먼저 다 채운 나라가 우승합니다 (그 전에 한 나라만 남으면 그 나라가 우승). 끝나면 모두 관전 모드가 되고 순위·MVP·국가별 통계가 담긴 결과 보고서가 나옵니다.</p></li>
       </ol>
     </div>
   </section>
@@ -287,7 +286,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <ul>
             <li>다른 나라 사람이 때리면 깎입니다. <strong>무기 종류·재질·날카로움/효율 인챈트</strong>에 따라 피해가 다르고, TNT·크리퍼 폭발도 피해를 줍니다.</li>
             <li>10분 동안 맞지 않으면 <strong>1분에 10씩</strong> 저절로 회복합니다 (종반에는 멈춤).</li>
-            <li>설치 조건: 다른 코어에서 <strong>300칸 이상</strong>, 높이 <span class="num">-40 ~ 200</span>, 보더 안쪽.</li>
+            <li>설치 조건: 다른 코어에서 <strong>300칸 이상</strong>, 맵 가운데에서 <strong>150칸 이상</strong>, 높이 <span class="num">-40 ~ 200</span>, 보더 안쪽.</li>
             <li>국왕은 게임당 한 번 코어를 회수해 옮길 수 있습니다 (최근 5분 동안 맞지 않았을 때, 10분 안에 다시 설치).</li>
             <li>나침반을 들고 우클릭하면 우리 코어의 방향과 거리가 나옵니다.</li>
           </ul>
@@ -335,9 +334,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <tbody>
                 <tr><td>한 번 비행 겉날개 <span class="note">— 내구도 무한, 착륙하면 사라짐</span></td><td class="r num">30</td></tr>
                 <tr><td>불사의 토템</td><td class="r num">30</td></tr>
-                <tr><td>TNT ×4</td><td class="r num">12</td></tr>
                 <tr><td>황금 사과 ×2</td><td class="r num">10</td></tr>
-                <tr><td>엔더 진주 ×4</td><td class="r num">8</td></tr>
                 <tr><td>폭죽 로켓 ×8</td><td class="r num">5</td></tr>
               </tbody>
             </table>
@@ -351,32 +348,21 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap">
       <div class="head">
         <span class="eyebrow">Sudden Death</span>
-        <h2>5일차부터 좁아지는 전장</h2>
-        <p>월드보더는 1시간마다 지름 60칸씩 줄어 약 45시간 뒤 300칸에서 멈춥니다. 마지막 이틀은 숨을 곳이 없습니다.</p>
+        <h2>7일차 밤 9시, 중앙 거점</h2>
+        <p>맵 가운데(X 0, Z 0)에 반지름 15칸짜리 거점이 열립니다. 우리 나라 사람만 안에 있으면 점령 점수가 오르고, 다른 나라가 같이 있으면 멈춥니다. 점령 점수는 떠나도 줄지 않고, <strong>1800점</strong>을 먼저 채운 나라가 우승합니다.</p>
       </div>
-      <figure class="chart" style="margin:0">
-        <svg viewBox="0 0 640 250" role="img" aria-label="종반 월드보더 지름: 5일차 3000칸에서 시작해 45시간 뒤 300칸, 7일차까지 300칸 유지">
-          <!-- x: 0~48시간 → 60~620, y: 0~3000칸 → 210~20 -->
-          <line class="grid" x1="60" y1="20" x2="620" y2="20"/>
-          <line class="grid" x1="60" y1="115" x2="620" y2="115"/>
-          <line class="grid" x1="60" y1="191" x2="620" y2="191"/>
-          <line class="axis" x1="60" y1="210" x2="620" y2="210"/>
-          <line class="axis" x1="60" y1="20" x2="60" y2="210"/>
-          <text x="52" y="24" text-anchor="end">3000</text>
-          <text x="52" y="119" text-anchor="end">1500</text>
-          <text x="52" y="195" text-anchor="end">300</text>
-          <text x="60" y="230" text-anchor="middle">5일차</text>
-          <text x="200" y="230" text-anchor="middle">+12h</text>
-          <text x="340" y="230" text-anchor="middle">6일차</text>
-          <text x="480" y="230" text-anchor="middle">+36h</text>
-          <text x="620" y="230" text-anchor="end">7일차</text>
-          <polygon class="area" points="60,20 585,191 620,191 620,210 60,210"/>
-          <polyline class="lineg" points="60,20 585,191 620,191"/>
-          <circle class="dot" cx="585" cy="191" r="5"/>
-          <text class="lab" x="579" y="178" text-anchor="end">45시간 뒤 300칸</text>
-          <text class="lab" x="72" y="42">지름 3000칸</text>
-        </svg>
-      </figure>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>거점 안 우리 나라 인원</th><th class="r">1초에</th><th class="r">아무도 안 끼어들 때 우승까지</th></tr></thead>
+          <tbody>
+            <tr><td>1명</td><td class="r num">1점</td><td class="r num">30분</td></tr>
+            <tr><td>2명</td><td class="r num">1.5점</td><td class="r num">20분</td></tr>
+            <tr><td>3명</td><td class="r num">2점</td><td class="r num">15분</td></tr>
+            <tr><td>4명</td><td class="r num">2.5점</td><td class="r num">12분</td></tr>
+            <tr><td>5명 이상</td><td class="r num">3점</td><td class="r num">10분</td></tr>
+            <tr><td>다른 나라가 같이 있음 (경합)</td><td class="r num">0</td><td class="r">—</td></tr>
+          </tbody>
+        </table>      </div>
     </div>
   </section>
 
@@ -394,22 +380,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           </ul>
         </div>
         <div>
-          <span class="eyebrow">Score</span>
-          <h2>점수</h2>
-          <div class="tbl">
-            <table>
-              <thead><tr><th>얻는 방법</th><th class="r">점수</th></tr></thead>
-              <tbody>
-                <tr><td>처치</td><td class="r num">10</td></tr>
-                <tr><td>어시스트</td><td class="r num">3</td></tr>
-                <tr><td>코어 피해 1당</td><td class="r num">0.1</td></tr>
-                <tr><td>다른 나라 흡수</td><td class="r num">200 + 그 나라 점수의 50%</td></tr>
-                <tr><td>살아남은 나라, 1시간마다</td><td class="r num">5</td></tr>
-                <tr><td>시간 종료 보너스: 국가원 1명당</td><td class="r num">20</td></tr>
-                <tr><td>시간 종료 보너스: 코어 체력 1%당</td><td class="r num">1</td></tr>
-              </tbody>
-            </table>
-          </div>
+          <span class="eyebrow">Victory</span>
+          <h2>우승 조건</h2>
+          <ul class="rules">
+            <li><strong>마지막까지 남은 나라</strong> — 다른 나라의 코어를 모두 부숴 흡수하면 바로 우승.</li>
+            <li><strong>중앙 거점 점령</strong> — 7일차 밤 9시에 열리는 거점에서 점령 점수 1800점을 먼저 채우면 우승.</li>
+            <li>처치·코어 피해 같은 <strong>점수는 없습니다</strong>. 싸움은 코어와 거점을 위해서만.</li>
+          </ul>
+        </div>
         </div>
       </div>
     </div>
@@ -440,7 +418,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="cmds">
         <div class="cmd"><code>/nc [메시지]</code><span>국가 채팅. 그냥 치면 켜고 끄기</span></div>
         <div class="cmd"><code>/nation core</code><span>우리 코어의 상태·위치·체력</span></div>
-        <div class="cmd"><code>/nation score</code><span>국가 점수 순위</span></div>
+        <div class="cmd"><code>/nation zone</code><span>중앙 거점 여는 때·점령 진행률</span></div>
         <div class="cmd"><code>/nation info [국가]</code><span>국가 목록, 또는 한 나라의 국왕·장교·국민·동맹</span></div>
         <div class="cmd"><code>/nation core relocate</code><span>코어 회수해 옮기기 (국왕)</span></div>
         <div class="cmd"><code>/nation promote &lt;이름&gt;</code><span>장교 임명 (국왕), 해제는 demote</span></div>
