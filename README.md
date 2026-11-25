@@ -12,9 +12,7 @@
 
 <br><br>
 
-<a href="https://github.com/spiro6360/nation-war/releases/latest">
-  <img src="https://img.shields.io/github/v/release/spiro6360/nation-war?label=%EC%B5%9C%EC%8B%A0%20%ED%8C%90&style=flat-square" alt="최신 판">
-</a>
+<img src="https://img.shields.io/github/v/release/spiro6360/nation-war?label=%EC%B5%9C%EC%8B%A0%20%ED%8C%90&style=flat-square" alt="최신 판">
 
 **↑ 초록 버튼을 누르면 설치 파일(NationWar-Setup.exe)이 바로 받아집니다.**
 
@@ -30,5 +28,3 @@
 
 ## 업데이트
 설치한 뒤에는 런처가 새 판을 스스로 받습니다. 새 판이 나오면 런처를 켤 때 업데이트 창이 뜨고, **[지금 업데이트]** 를 눌러야 런처를 쓸 수 있습니다.
-
-지난 판과 서버 파일은 [Releases](https://github.com/spiro6360/nation-war/releases) 에 있습니다.
