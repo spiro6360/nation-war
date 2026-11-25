@@ -113,6 +113,11 @@ p { margin: 0; }
   transition: background 0.15s;
 }
 .btn:hover { background: var(--gold-hi); }
+.btn.alt { color: var(--text); background: transparent; box-shadow: inset 0 0 0 1px var(--gold); }
+.btn.alt:hover { background: var(--ink-1); }
+.btn small { font-weight: 400; font-size: 0.8rem; opacity: 0.8; }
+.ok-list li::marker { content: "✓  "; color: var(--gold); }
+.no-list li::marker { content: "✕  "; color: #d05050; }
 .note { font-size: 0.9rem; color: var(--faint); }
 
 /* ── 숫자 띠 ── */
@@ -231,9 +236,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <div class="wrap">
     <div class="crest" aria-hidden="true">國</div>
     <h1>국가전쟁<small>NATION WAR</small></h1>
-    <p class="lede">팀장이 포인트 경매로 국민을 데려가 나라를 세우고, <strong>국가 코어</strong>를 숨겨 지키며 다른 나라의 코어를 부숩니다. 코어가 부서진 나라는 멸망해 부순 나라에 흡수됩니다. 마지막까지 살아남은 나라, 혹은 <strong>7일차 밤 9시</strong>에 맵 가운데에 열리는 중앙 거점을 먼저 점령한 나라가 우승합니다.</p>
+    <p class="lede">팀장이 포인트 경매로 국민을 데려가 나라를 세우고, <strong>국가 코어</strong>를 숨겨 지키며 다른 나라의 코어를 부숩니다. 코어가 부서진 나라는 멸망해 부순 나라에 흡수됩니다. 마지막까지 살아남은 나라, 혹은 <strong>7일차 밤 9시</strong>에 맵 가운데에 열리는 중앙 거점을 먼저 점령한 나라가 우승합니다. 죽으면 <strong>30분 동안 접속 금지</strong>라 한 번의 싸움이 무겁습니다.</p>
     <div class="actions">
       <a class="btn" href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>런처 받기 (Windows)</a>
+      <a class="btn alt" href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Mac-arm64.dmg" download>Mac <small>Apple 칩 (M1~)</small></a>
+      <a class="btn alt" href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Mac-x64.dmg" download>Mac <small>Intel</small></a>
     </div>
     <p class="note">마인크래프트 자바 에디션 정품 계정 · 버전 26.3 · 런처를 설치하고 <strong>게임 시작</strong>을 누르면 서버로 바로 들어갑니다 (전용 런처로만 접속할 수 있습니다). 서버는 <strong>토·일요일에만</strong> 열립니다. 오픈 일정은 따로 공지합니다.</p>
   </div>
@@ -245,12 +252,43 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <li><b class="num">7일</b><span>시즌 길이 · 주말에만 흘러 약 3~4주</span></li>
       <li><b class="num">1000</b><span>국가 코어 체력</span></li>
       <li><b class="num">비공개</b><span>코어 위치는 직접 찾아야 합니다</span></li>
-      <li><b class="num">2000~3000</b><span>국가 수에 맞춘 시작 월드보더 지름(칸)</span></li>
+      <li><b class="num">30분</b><span>죽으면 접속 금지 · 팀원이 다이아로 바로 살릴 수 있음</span></li>
     </ul>
   </div>
 </div>
 
 <main>
+  <section class="block" id="about">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">What is Nation War</span>
+        <h2>국가전쟁은 어떤 게임인가요?</h2>
+        <p>마인크래프트 생존 서버 위에서 여러 나라가 일주일(주말 기준) 동안 싸우는 팀 전쟁입니다. 점수 경쟁이 아니라 <strong>상대 나라의 코어를 부수거나, 마지막 날 중앙 거점을 차지하는 것</strong>만이 목표입니다.</p>
+      </div>
+      <div class="two">
+        <div>
+          <h3>나라와 역할</h3>
+          <ul class="rules">
+            <li><strong>국왕</strong> — 드래프트에서 국민을 데려온 팀장. 국가 이름·색을 정하고, 코어를 설치하고, 게임당 한 번 코어를 옮길 수 있습니다. 장교를 임명합니다.</li>
+            <li><strong>장교</strong> — 국왕이 임명하는 간부. 국가 운영을 돕습니다.</li>
+            <li><strong>국민</strong> — 함께 자원을 모으고 코어를 지키며 상대 코어를 찾아 공격합니다.</li>
+            <li>코어가 부서진 나라는 <strong>멸망해 부순 나라에 흡수</strong>됩니다. 흡수된 사람은 탈락하지 않고 그 나라 국민이 되어 계속 싸웁니다. 그래서 시즌이 흐를수록 나라는 줄고 남은 나라는 커집니다.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>이렇게 흘러갑니다</h3>
+          <ul class="rules">
+            <li><strong>초반</strong> — 국왕이 들킬 위험이 적은 곳에 코어를 숨깁니다. 국민은 광석을 캐고 장비를 갖춥니다. 경험치 레벨은 코어 상점의 화폐라 아껴 두세요.</li>
+            <li><strong>중반</strong> — 상대 코어 위치를 찾아냅니다 (위치는 공개되지 않습니다). 철·금·다이아 블록으로 코어를 수리할 수 있으니 공격은 한 번에 몰아서.</li>
+            <li><strong>종반(5일차~)</strong> — 코어 자연 회복이 멈춰 공격이 훨씬 무거워집니다.</li>
+            <li><strong>마지막 날(7일차 21시)</strong> — 맵 가운데 거점이 열립니다. 1초마다 점령률이 %로 올라가고, 100%를 먼저 채운 나라가 우승합니다.</li>
+            <li>죽음은 비쌉니다. 죽으면 30분 동안 들어올 수 없고, 팀원이 다이아로 살려 줘야 바로 돌아옵니다. 무리한 돌격보다 준비된 한 번이 이깁니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="season">
     <div class="wrap">
       <div class="head">
@@ -259,12 +297,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p>아래 시간은 기본 설정 기준이고, 시즌마다 공지로 바뀔 수 있습니다.</p>
       </div>
       <ol class="timeline">
-        <li><span class="when">시작 전</span><h3>드래프트 경매</h3><p>관리자가 명단에 넣은 사람만 참가합니다. 팀장마다 100포인트를 받고, 참가자가 무작위 순서로 한 명씩 올라오면 공개 입찰로 데려갑니다(첫 입찰 15초, 입찰마다 10초 연장). 아무도 안 걸면 맨 뒤로, 두 번 유찰되면 끝에 자리 남은 팀으로 0포인트. 모두가 런처 드래프트 화면에서 실시간으로 보고, 팀장은 거기서 입찰합니다.</p></li>
+        <li><span class="when">시작 전</span><h3>드래프트 경매</h3><p>관리자가 명단에 넣은 사람만 참가합니다. 팀장마다 100포인트를 받고, 참가자가 무작위 순서로 한 명씩 올라오면 공개 입찰로 데려갑니다(첫 입찰 15초, 입찰마다 10초 연장). 아무도 안 걸면 맨 뒤로, 두 번 유찰되면 끝에 자리 남은 팀으로 0포인트. 모두가 런처 드래프트 화면에서 실시간으로 보고, <strong>입찰은 런처에서만</strong> 합니다 (게임 안 입찰 명령은 없습니다).</p></li>
         <li><span class="when">경매 직후</span><h3>건국</h3><p>팀장이 국왕이 되어 2분 안에 국가 이름과 색을 정합니다.</p></li>
         <li><span class="when">0시간</span><h3>전쟁 시작</h3><p>나라마다 흩어진 스폰 지점에서 10초 카운트다운 뒤 시작합니다. 국왕은 국가 코어(신호기)를 받아 <strong>15분 안에</strong> 설치합니다. 안 하면 자동으로 설치됩니다.</p></li>
         <li><span class="when">매주 토 22:00</span><h3>엔드 개방</h3><p>2시간 동안만 엔드 포탈이 열립니다. 드래곤이 쓰러지면 1분 뒤 모두 돌아오고 엔드는 처음 상태로 초기화됩니다.</p></li>
         <li class="hot"><span class="when">5일차</span><h3>종반 · 서든데스</h3><p>코어 자연 회복이 멈춥니다. 더 이상 저절로 체력이 차지 않으니 공격이 훨씬 무거워집니다.</p></li>
-        <li class="hot"><span class="when">7일차</span><h3>오후 9시 · 중앙 거점</h3><p>X 0, Z 0 에 거점이 열립니다. 점령 점수를 먼저 다 채운 나라가 우승합니다 (그 전에 한 나라만 남으면 그 나라가 우승). 끝나면 모두 관전 모드가 되고 순위·MVP·국가별 통계가 담긴 결과 보고서가 나옵니다.</p></li>
+        <li class="hot"><span class="when">7일차</span><h3>오후 9시 · 중앙 거점</h3><p>X 0, Z 0 에 거점이 열립니다. 점령률(1초마다 %로 오름)을 먼저 100% 채운 나라가 우승합니다 (그 전에 한 나라만 남으면 그 나라가 우승). 끝나면 모두 관전 모드가 되고 순위·MVP·국가별 통계가 담긴 결과 보고서가 나옵니다.</p></li>
       </ol>
     </div>
   </section>
@@ -322,6 +360,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li>엔드 포탈은 <strong>매주 토요일 22:00부터 2시간</strong>만 열립니다. 다른 때 들어가면 막히고 다음 열림이 안내됩니다.</li>
             <li>누군가 엔더 드래곤을 잡으면 <strong>정확히 1분 뒤</strong> 엔드에 있는 모두가 자기 나라 리스폰 지점으로 돌아가고, 엔드는 잠긴 뒤 처음 상태로 초기화됩니다. 2시간이 지나도 같습니다.</li>
             <li>그래서 겉날개는 엔드 도시에서 쉽게 얻을 수 없습니다. 하늘을 날려면 코어 상점의 <strong>한 번 비행 겉날개</strong>를 쓰세요.</li>
+            <li>한 번 비행 겉날개는 착륙하면 사라지고, <strong>착륙한 때부터 3분 뒤</strong> 자기 나라 코어(스폰)로 저절로 돌아갑니다. 정찰·기습은 되지만 적진에 눌러앉을 수는 없습니다. 3분 안에 죽으면 귀환은 취소됩니다.</li>
           </ul>
         </div>
         <div>
@@ -332,7 +371,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <table>
               <thead><tr><th>아이템</th><th class="r">레벨</th></tr></thead>
               <tbody>
-                <tr><td>한 번 비행 겉날개 <span class="note">— 내구도 무한, 착륙하면 사라짐</span></td><td class="r num">30</td></tr>
+                <tr><td>한 번 비행 겉날개 <span class="note">— 내구도 무한, 착륙하면 사라지고 3분 뒤 코어로 귀환</span></td><td class="r num">30</td></tr>
                 <tr><td>불사의 토템</td><td class="r num">30</td></tr>
                 <tr><td>황금 사과 ×2</td><td class="r num">10</td></tr>
                 <tr><td>폭죽 로켓 ×8</td><td class="r num">5</td></tr>
@@ -349,7 +388,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="head">
         <span class="eyebrow">Sudden Death</span>
         <h2>7일차 밤 9시, 중앙 거점</h2>
-        <p>맵 가운데(X 0, Z 0)에 반지름 15칸짜리 거점이 열립니다. 우리 나라 사람만 안에 있으면 점령 점수가 오르고, 다른 나라가 같이 있으면 멈춥니다. 점령 점수는 떠나도 줄지 않고, <strong>1800점</strong>을 먼저 채운 나라가 우승합니다.</p>
+        <p>맵 가운데(X 0, Z 0)에 반지름 15칸짜리 거점이 열립니다. 우리 나라 사람만 안에 있으면 점령 점수가 오르고, 다른 나라가 같이 있으면 멈춥니다. 점령 점수는 떠나도 줄지 않고, <strong>1800점</strong>을 먼저 채운 나라가 우승합니다. 진행률은 <strong>1초마다</strong> 쌓여 보스바·사이드바에 <strong>12.34%</strong>처럼 소수 둘째 자리까지 보입니다.</p>
       </div>
       <div class="tbl">
         <table>
@@ -374,7 +413,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <h2>전투 규칙</h2>
           <ul class="rules">
             <li>같은 나라끼리는 서로 피해를 주지 않습니다.</li>
-            <li>죽으면 아이템을 떨어뜨리고 <strong>15초 뒤</strong> 리스폰, 리스폰 직후 3초 동안 보호됩니다.</li>
+            <li>죽으면 아이템을 떨어뜨리고 서버에서 나가지며 <strong>30분 동안 접속할 수 없습니다</strong>. 30분이 지나면 다시 들어와 우리 코어 근처에서 시작합니다 (리스폰 직후 3초 보호). 일시정지·평일 동안은 시간이 흐르지 않습니다.</li>
+            <li><strong>팀원 부활</strong> — 살아 있는 같은 나라 사람이 <code>/nation revive 이름</code>으로 다이아를 내면 접속 금지가 바로 풀립니다. 첫 부활은 <strong>다이아 8개</strong>, 같은 사람을 다시 살릴 때마다 <strong>4개씩</strong> 비싸집니다 (8 → 12 → 16 …). 누가 죽으면 팀원들에게 [부활] 버튼이 뜹니다.</li>
             <li>공격을 주고받으면 15초 동안 <strong>전투 중</strong>이 되고, 이때 접속을 끊으면 죽은 것으로 처리됩니다.</li>
             <li>국왕은 장교를 임명할 수 있고, 설정에 따라 다른 나라와 동맹을 맺을 수 있습니다.</li>
           </ul>
@@ -393,6 +433,45 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </div>
   </section>
 
+  <section class="block" id="farm">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Farming rules</span>
+        <h2>농장 규칙</h2>
+        <p>코어 상점의 화폐가 경험치 레벨이라, 자동으로 경험치·자원을 뽑아내는 농장은 서버가 시스템으로 막습니다. <strong>경험치 농장은 특히 강하게</strong> 막습니다. 대신 평소 생존 플레이(사냥·채굴·농사·낚시·거래)는 그대로입니다.</p>
+      </div>
+      <div class="two">
+        <div>
+          <h3>되는 것</h3>
+          <ul class="rules ok-list">
+            <li><strong>손으로 짓는 농사와 나무</strong> — 밀·당근·감자·비트·네더 사마귀·호박·수박을 직접 심고 거두기, 나무 심고 베기.</li>
+            <li><strong>사탕수수·대나무·켈프·선인장 자동 수확</strong> — 피스톤·관찰자로 거두거나 선인장이 자라며 부서지는 농장은 됩니다. 켈프·선인장은 구워도 경험치가 나오지 않습니다.</li>
+            <li><strong>디스펜서 양털 깎기</strong> — 자동 양털 농장은 됩니다.</li>
+            <li><strong>동물 번식</strong> — 됩니다. 단 한 청크에 같은 동물은 24마리까지, 번식으로는 경험치가 나오지 않습니다.</li>
+            <li><strong>주민 거래</strong> — 이미 있는 주민과 거래하기 (거래 경험치는 아래 1시간 한도에 들어감).</li>
+            <li><strong>보통 사냥·낚시</strong> — 칼·활로 잡은 몹, 햇빛에 타 죽은 좀비도 평소처럼 아이템과 경험치를 남깁니다. 낚시도 됩니다.</li>
+            <li><strong>광석 캐기·광석 굽기·다른 나라 사람 처치</strong>로 얻는 경험치는 한도 없이 그대로입니다.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>막은 것과 이유</h3>
+          <ul class="rules no-list">
+            <li><strong>경험치 1시간 한도</strong> — 몹 처치·낚시·주민 거래·화로·숫돌·경험치 병으로 얻는 경험치는 한 사람이 1시간에 400점(약 레벨 0→17)까지만. 어떤 농장이든 끝없이 레벨을 뽑을 수 없게 하는 마지막 안전장치입니다.</li>
+            <li><strong>몹 그라인더</strong> — 낙하·끼임·질식·익사·용암·마그마·선인장 같은 "농장식 피해"로 체력 절반 이상을 잃고 죽은 몹은 아이템도 경험치도 남기지 않습니다.</li>
+            <li><strong>스포너</strong> — 던전 몹 상자에서 몹이 나오지 않고, 부숴도 경험치가 없습니다.</li>
+            <li><strong>습격·약탈대</strong> — 오지 않습니다 (토템·에메랄드 농장 방지). 토템은 코어 상점에서 사세요.</li>
+            <li><strong>철 골렘 농장</strong> — 주민이 골렘을 부르지 않습니다 (직접 만드는 골렘은 됨).</li>
+            <li><strong>금 농장</strong> — 네더 포탈에서 좀비 피글린이 나오지 않습니다. 피글린 물물교환도 막혀 있습니다.</li>
+            <li><strong>주민 번식·주민 농부</strong> — 주민이 늘지 않고 작물을 대신 심거나 거두지 않습니다 (거래 홀 무한 증식 방지).</li>
+            <li><strong>자동 작물 수확</strong> — 물을 흘리거나 피스톤으로 밀·당근·감자·비트·네더 사마귀·호박·수박·코코아 등을 거두기, 디스펜서로 뼛가루 뿌리기는 막힙니다 (자동으로 무한히 키워 거두는 것 방지).</li>
+            <li><strong>잠수 낚시</strong> — 몇 분 동안 시점을 전혀 움직이지 않고 낚으면 아무것도 낚이지 않습니다.</li>
+            <li><strong>화로 경험치</strong> — 광석이 아닌 것을 구울 때는 경험치가 나오지 않습니다 (켈프·선인장 굽기 경험치 농장 방지).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="join">
     <div class="wrap">
       <div class="head">
@@ -401,8 +480,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p>국가전쟁은 전용 런처로만 들어올 수 있습니다. 런처가 게임 설치, 허용된 모드 관리, 서버 접속을 한 번에 해 줍니다.</p>
       </div>
       <ol class="steps">
-        <li><h3>런처 받기</h3><p>위의 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>[런처 받기]</a>를 누르면 설치 파일 <code>NationWar-Setup.exe</code>가 바로 받아집니다.</p></li>
-        <li><h3>설치</h3><p>"Windows의 PC 보호" 창이 뜨면 <strong>추가 정보 → 실행</strong>. 관리자 권한은 필요 없습니다.</p></li>
+        <li><h3>런처 받기</h3><p>Windows는 위의 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>[런처 받기]</a>로 <code>NationWar-Setup.exe</code>를, Mac은 Apple 칩(M1 이후)이면 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Mac-arm64.dmg" download>arm64</a>, Intel 맥이면 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Mac-x64.dmg" download>x64</a> 파일을 받습니다.</p></li>
+        <li><h3>설치</h3><p>Windows: "Windows의 PC 보호" 창이 뜨면 <strong>추가 정보 → 실행</strong>. Mac: dmg를 열어 응용 프로그램 폴더로 끌어 놓고, 처음 열 때 막히면 <strong>시스템 설정 › 개인정보 보호 및 보안 › 그래도 열기</strong>.</p></li>
         <li><h3>로그인</h3><p>마이크로소프트 계정으로 로그인합니다. 비밀번호는 마이크로소프트 공식 창에서만 입력합니다.</p></li>
         <li><h3>출정</h3><p>홈에서 [게임 시작]을 누르면 26.3 설치 후 서버로 바로 접속합니다. 새 런처 판은 자동으로 받습니다.</p></li>
       </ol>
@@ -422,7 +501,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="cmd"><code>/nation info [국가]</code><span>국가 목록, 또는 한 나라의 국왕·장교·국민·동맹</span></div>
         <div class="cmd"><code>/nation core relocate</code><span>코어 회수해 옮기기 (국왕)</span></div>
         <div class="cmd"><code>/nation promote &lt;이름&gt;</code><span>장교 임명 (국왕), 해제는 demote</span></div>
-        <div class="cmd"><code>/draft bid &lt;금액&gt;</code><span>드래프트 경매 입찰 (팀장, +5 처럼 쓰면 최고가보다 더). 런처에서도 됩니다</span></div>
+        <div class="cmd"><code>/nation revive [이름]</code><span>접속 금지된 팀원 목록, 또는 다이아로 바로 부활 (8개, 같은 사람은 +4개씩)</span></div>
         <div class="cmd"><code>/nw result</code><span>지난 게임의 결과 보고서</span></div>
       </div>
     </div>
@@ -438,10 +517,13 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <details><summary>다른 런처나 바닐라로는 못 들어가나요?</summary><p>네. 서버가 접속할 때 NationWar 런처의 확인 모드를 찾고, 없으면 10초 뒤 "NationWar 런처로 접속해 주세요"라는 문구와 함께 내보냅니다.</p></details>
         <details><summary>모드를 써도 되나요?</summary><p>관리자가 허용한 모드만 쓸 수 있습니다. 런처의 모드 탭에서 허용된 모드를 바로 설치할 수 있고, 원하는 모드가 없으면 [추가 요청]을 누르면 관리자에게 전달됩니다. 허용되지 않은 모드는 게임을 켤 때 자동으로 빼 둡니다.</p></details>
         <details><summary>정품 계정이 꼭 필요한가요?</summary><p>네. 마인크래프트 자바 에디션을 가진 마이크로소프트 계정이 필요합니다.</p></details>
-        <details><summary>맥이나 리눅스에서도 되나요?</summary><p>지금 런처는 Windows(64비트)용만 있습니다.</p></details>
+        <details><summary>맥이나 리눅스에서도 되나요?</summary><p>Windows(64비트)와 Mac(Apple 칩·Intel)을 지원합니다. 애플 메뉴 › 이 Mac에 관하여에서 칩이 "Apple M…"이면 arm64, "Intel"이면 x64를 받으세요. 리눅스용은 아직 없습니다.</p></details>
         <details><summary>"Windows의 PC 보호" 창이 떠요. 괜찮나요?</summary><p>런처에 유료 코드 서명을 하지 않아 뜨는 창입니다. 공식 배포처(GitHub spiro6360/nation-war)에서 받은 파일이라면 <strong>추가 정보 → 실행</strong>을 눌러 설치하면 됩니다.</p></details>
         <details><summary>평일에는 못 들어가나요?</summary><p>네. 서버는 토·일요일에만 열리고, 평일에는 관리자만 들어올 수 있습니다. 평일 동안은 전쟁이 멈춰 있어서 남은 시간이 줄지 않습니다.</p></details>
-        <details><summary>겉날개는 어떻게 얻나요?</summary><p>엔드는 매주 토요일 22시에만 열리고 드래곤이 쓰러지면 1분 뒤 초기화되어, 엔드 도시를 돌 시간이 거의 없습니다. 대신 국가 코어 상점에서 레벨 30으로 한 번 비행 겉날개를 살 수 있습니다. 착륙하면 사라집니다.</p></details>
+        <details><summary>겉날개는 어떻게 얻나요?</summary><p>엔드는 매주 토요일 22시에만 열리고 드래곤이 쓰러지면 1분 뒤 초기화되어, 엔드 도시를 돌 시간이 거의 없습니다. 대신 국가 코어 상점에서 레벨 30으로 한 번 비행 겉날개를 살 수 있습니다. 착륙하면 사라지고 3분 뒤 자기 코어로 돌아갑니다.</p></details>
+        <details><summary>죽었더니 30분 동안 못 들어온대요.</summary><p>국가전쟁에서는 죽으면 30분 동안 접속할 수 없습니다. 같은 나라 팀원이 <code>/nation revive 내이름</code>으로 다이아(처음 8개, 같은 사람은 다시 살릴 때마다 +4개)를 내면 바로 들어올 수 있습니다. 서버가 일시정지되거나 평일인 동안은 남은 시간이 줄지 않습니다.</p></details>
+        <details><summary>제 농장이 갑자기 작동을 안 해요.</summary><p>위 "농장 규칙"의 막은 것에 해당하면 서버가 막습니다. 사탕수수·대나무·켈프·선인장 자동 수확, 디스펜서 양털 깎기, 손으로 하는 농사, 동물 번식(청크당 24마리), 주민 거래는 그대로 됩니다. "이번 1시간 경험치 한도" 알림이 떴다면 1시간 뒤 다시 경험치를 얻을 수 있고, 광석 캐기·PvP 경험치는 한도와 상관없습니다.</p></details>
+        <details><summary>드래프트 입찰은 어디서 하나요?</summary><p>런처의 드래프트 화면에서만 합니다. 게임 안에는 입찰 명령이 없으니, 팀장은 경매 동안 런처를 켜 두세요.</p></details>
         <details><summary>서버에 들어가지 못하고 "참가 명단에 없습니다"라고 나와요.</summary><p>이번 시즌은 관리자가 드래프트 명단(팀장·경매 참가자)에 넣은 사람만 들어올 수 있습니다. 참가하려면 관리자에게 마인크래프트 닉네임을 알려 명단에 넣어 달라고 하세요.</p></details>
         <details><summary>포인트가 남으면 어떻게 되나요?</summary><p>경매가 끝나면 남은 포인트는 쓰이지 않습니다. 대신 한 팀원에게 너무 많이 걸면 남은 자리를 채울 포인트가 부족해질 수 있어, 남은 자리마다 최소 입찰가만큼은 남겨야 합니다.</p></details>
       </div>
