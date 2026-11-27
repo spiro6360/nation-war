@@ -480,7 +480,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
       <ol class="steps">
         <li><h3>런처 받기</h3><p>Windows는 위의 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Setup.exe" download>[런처 받기]</a>로 <code>NationWar-Setup.exe</code>를, Mac은 Apple 칩(M1 이후)이면 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Mac-arm64.dmg" download>arm64</a>, Intel 맥이면 <a href="https://github.com/spiro6360/nation-war/releases/latest/download/NationWar-Mac-x64.dmg" download>x64</a> 파일을 받습니다.</p></li>
-        <li><h3>설치</h3><p>Windows: "Windows의 PC 보호" 창이 뜨면 <strong>추가 정보 → 실행</strong>. Mac: dmg를 열어 응용 프로그램 폴더로 끌어 놓고, 처음 열 때 막히면 <strong>시스템 설정 › 개인정보 보호 및 보안 › 그래도 열기</strong>.</p></li>
+        <li><h3>설치</h3><p>Windows: "Windows의 PC 보호" 창이 뜨면 <strong>추가 정보 → 실행</strong>. Mac은 <strong>터미널</strong>(응용 프로그램 › 유틸리티)에 아래 한 줄을 붙여 넣고 Enter — 칩에 맞는 런처를 받아 설치하고 바로 켭니다. 이렇게 설치하면 "Apple이 확인하지 못했다" 창이 뜨지 않고, 그다음 업데이트는 런처가 스스로 합니다.</p>
+          <div class="cmd"><code>curl -fsSL https://spiro6360.github.io/nation-war/install-mac.sh | bash</code><span>Mac 설치 한 줄</span></div>
+          <p>dmg로 설치했는데 "열 수 없음" 창이 떴다면: [완료]를 누르고 <strong>시스템 설정 › 개인정보 보호 및 보안</strong> 맨 아래의 <strong>[그래도 열기]</strong>를 누른 뒤 암호를 넣으세요. 한 번만 하면 됩니다.</p></li>
         <li><h3>로그인</h3><p>마이크로소프트 계정으로 로그인합니다. 비밀번호는 마이크로소프트 공식 창에서만 입력합니다.</p></li>
         <li><h3>출정</h3><p>홈에서 [게임 시작]을 누르면 26.3 설치 후 서버로 바로 접속합니다. 새 런처 판은 자동으로 받습니다.</p></li>
       </ol>
