@@ -231,7 +231,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 </style>
 </head>
 <body>
-
 <header class="hero">
   <div class="wrap">
     <div class="crest" aria-hidden="true">國</div>
@@ -297,9 +296,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p>아래 시간은 기본 설정 기준이고, 시즌마다 공지로 바뀔 수 있습니다.</p>
       </div>
       <ol class="timeline">
-        <li><span class="when">시작 전</span><h3>드래프트 경매</h3><p>관리자가 명단에 넣은 사람만 참가합니다. 팀장마다 100포인트를 받고, 참가자가 무작위 순서로 한 명씩 올라오면 공개 입찰로 데려갑니다(첫 입찰 15초, 입찰마다 10초 연장). 아무도 안 걸면 맨 뒤로, 두 번 유찰되면 끝에 자리 남은 팀으로 0포인트. 모두가 런처 드래프트 화면에서 실시간으로 보고, <strong>입찰은 런처에서만</strong> 합니다 (게임 안 입찰 명령은 없습니다).</p></li>
+        <li><span class="when">시작 전</span><h3>드래프트 경매</h3><p>관리자가 명단에 넣은 사람만 참가합니다. 팀장마다 100포인트를 받고, 참가자가 무작위 순서로 한 명씩 올라오면 공개 입찰로 데려갑니다(첫 입찰 15초, 입찰마다 10초 연장). 아무도 안 걸면 맨 뒤로, 두 번 유찰되면 끝에 자리 남은 팀으로 0포인트. <strong>팀장은 꼭 있어야</strong> 하고, 사정이 있어 없는 참가자는 팀장이 먼저 뽑아 두면 나중에 들어와 그 팀으로 합류합니다. 모두가 런처 드래프트 화면에서 실시간으로 보고, <strong>입찰은 런처에서만</strong> 합니다 (게임 안 입찰 명령은 없습니다).</p></li>
         <li><span class="when">경매 직후</span><h3>건국</h3><p>팀장이 국왕이 되어 2분 안에 국가 이름과 색을 정합니다.</p></li>
-        <li><span class="when">0시간</span><h3>전쟁 시작</h3><p>나라마다 흩어진 스폰 지점에서 10초 카운트다운 뒤 시작합니다. 국왕은 국가 코어(신호기)를 받아 <strong>15분 안에</strong> 설치합니다. 안 하면 자동으로 설치됩니다.</p></li>
+        <li><span class="when">0시간</span><h3>전쟁 시작</h3><p>나라마다 흩어진 스폰 지점에서 10초 카운트다운 뒤 시작합니다. 국왕은 국가 코어(신호기)를 받아 <strong>20분 안에</strong> 설치합니다. 안 하면 자동으로 설치됩니다.</p></li>
         <li><span class="when">매주 토 22:00</span><h3>엔드 개방</h3><p>2시간 동안만 엔드 포탈이 열립니다. 드래곤이 쓰러지면 1분 뒤 모두 돌아오고 엔드는 처음 상태로 초기화됩니다.</p></li>
         <li class="hot"><span class="when">5일차</span><h3>종반 · 서든데스</h3><p>코어 자연 회복이 멈춥니다. 더 이상 저절로 체력이 차지 않으니 공격이 훨씬 무거워집니다.</p></li>
         <li class="hot"><span class="when">7일차</span><h3>오후 9시 · 중앙 거점</h3><p>X 0, Z 0 에 거점이 열립니다. 점령률(1초마다 %로 오름)을 먼저 100% 채운 나라가 우승합니다 (그 전에 한 나라만 남으면 그 나라가 우승). 끝나면 모두 관전 모드가 되고 순위·MVP·국가별 통계가 담긴 결과 보고서가 나옵니다.</p></li>
@@ -325,7 +324,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li>다른 나라 사람이 때리면 깎입니다. <strong>무기 종류·재질·날카로움/효율 인챈트</strong>에 따라 피해가 다르고, TNT·크리퍼 폭발도 피해를 줍니다.</li>
             <li>10분 동안 맞지 않으면 <strong>1분에 10씩</strong> 저절로 회복합니다 (종반에는 멈춤).</li>
             <li>설치 조건: 다른 코어에서 <strong>300칸 이상</strong>, 맵 가운데에서 <strong>150칸 이상</strong>, 높이 <span class="num">-40 ~ 200</span>, 보더 안쪽.</li>
-            <li>국왕은 게임당 한 번 코어를 회수해 옮길 수 있습니다 (최근 5분 동안 맞지 않았을 때, 10분 안에 다시 설치).</li>
+            <li>국왕은 게임당 한 번 코어를 회수해 옮길 수 있습니다 (최근 5분 동안 맞지 않았을 때, 회수한 뒤 1시간 안에 다시 설치).</li>
             <li>나침반을 들고 우클릭하면 우리 코어의 방향과 거리가 나옵니다.</li>
           </ul>
         </div>
@@ -415,7 +414,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li>같은 나라끼리는 서로 피해를 주지 않습니다.</li>
             <li>죽으면 아이템을 떨어뜨리고 서버에서 나가지며 <strong>30분 동안 접속할 수 없습니다</strong>. 30분이 지나면 다시 들어와 우리 코어 근처에서 시작합니다 (리스폰 직후 3초 보호). 일시정지·평일 동안은 시간이 흐르지 않습니다.</li>
             <li><strong>팀원 부활</strong> — 살아 있는 같은 나라 사람이 <code>/nation revive 이름</code>으로 다이아를 내면 접속 금지가 바로 풀립니다. 첫 부활은 <strong>다이아 8개</strong>, 같은 사람을 다시 살릴 때마다 <strong>4개씩</strong> 비싸집니다 (8 → 12 → 16 …). 누가 죽으면 팀원들에게 [부활] 버튼이 뜹니다.</li>
-            <li>공격을 주고받으면 15초 동안 <strong>전투 중</strong>이 되고, 이때 접속을 끊으면 죽은 것으로 처리됩니다.</li>
+            <li>공격을 주고받으면 20초 동안 <strong>전투 중</strong>이 되고, 이때 접속을 끊으면 죽은 것으로 처리됩니다.</li>
             <li>국왕은 장교를 임명할 수 있고, 설정에 따라 다른 나라와 동맹을 맺을 수 있습니다.</li>
           </ul>
         </div>
